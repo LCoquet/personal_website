@@ -4,6 +4,7 @@ import { DM_Sans, DM_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { createNoise2D } from "simplex-noise";
 import NoiseBackground from "./components/NoiseBackground";
+import Header from "./components/Header";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
@@ -42,7 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${bebasNeue.variable} ${dmSans.variable} ${dmMono.variable} antialiased`}>
         <NoiseBackground/>
         {/* Main content */}
-        <div style={{ position: "relative", zIndex: 1 }}>
+        <Header />
+        <div className="flex items-center justify-center">
           {children}
         </div>
       </body>
