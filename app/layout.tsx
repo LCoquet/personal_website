@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NoiseBackground/>
         {/* Main content */}
         <Header />
-        <div className="flex items-center justify-center">
+        <div className="mx-auto items-center justify-center w-full">
           {children}
         </div>
         {/* Footer */}
