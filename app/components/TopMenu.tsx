@@ -3,16 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { navLinks } from "@/app/constants/navLinks";
 
 export default function TopMenu() {
     const pathname = usePathname();
-    const navLinks = [
-        { href: "/", label: "Home" },
-        { href: "/thesis", label: "Thesis" },
-        { href: "/news", label: "News" },
-        { href: "/side_projects", label: "Side Projects" },
-        { href: "/about", label: "About" },
-    ];
     const navItemClass = "hover:text-gray-400 dark:hover:text-gray-400 hover:underline transition-all underline-offset-4 duration-300 cursor-pointer";
 
     return (

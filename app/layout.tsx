@@ -6,6 +6,7 @@ import { createNoise2D } from "simplex-noise";
 import NoiseBackground from "./components/NoiseBackground";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MainContainer from "./components/MainContainer";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
@@ -46,7 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Main content */}
         <Header />
         <div className="mx-auto items-center justify-center w-full">
-          {children}
+          <MainContainer>
+            {children}
+          </MainContainer>
         </div>
         {/* Footer */}
         <Footer />
