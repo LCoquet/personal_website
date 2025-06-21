@@ -12,8 +12,9 @@ export default function MainContainer({children}: MainContainerProps ) {
     const current = navLinks.find(link => link.href === pathname);
 
     return (
-        <div className="w-3/4 mx-auto bg-white/40 border border-gray-300 rounded-lg p-8 text-center relative z-10">
-            <h2 className="text-4xl font-bold mb-6">
+        // bg-white/30 border border-gray-300 rounded-lg 
+        <div className="w-3/4 mx-auto p-8 text-center relative z-10">
+            <h2 className="text-5xl font-bold mb-6">
                 {current?.label}
             </h2>
             {children}
