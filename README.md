@@ -1,3 +1,5 @@
+This README needs a bit of cleanup, shortly coming, no worries! When I'll have time. You don't need to install it as it's online here: [leocoquet.fr](https://leocoquet.fr) and it's as simple as that~  
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
