@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div>
       <ArticleCard article={{
-        title: "Website is finaly out!",
+        title: "Website is finally out!",
         description: "After months of procrastination, I finally decided to create my website. I hope I'll be able to add plenty of exciting content as often as possible!",
-        date: "2023-10-01",
+        date: "2025-06-21",
         link: "/news/new_website",
         image: "/articles_main/placeholder.png"
       }} />
