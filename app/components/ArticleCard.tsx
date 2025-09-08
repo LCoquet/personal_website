@@ -33,34 +33,3 @@ export default function ArticleCard({ article }: { article: { title: string; des
         </Link>
     );
 }
-
-export const metadata = {
-    title: 'My Articles',
-    description: 'A collection of my articles',
-};
-
-export async function getStaticProps() {
-    const articles = [
-        {
-            title: 'Article 1',
-            description: 'Description for article 1',
-            date: '2023-10-01',
-            link: '/articles/article-1',
-            image: '/articles_main/website_news.png',
-        },
-        {
-            title: 'Article 2',
-            description: 'Description for article 2',
-            date: '2023-10-02',
-            link: '/articles/article-2',
-            image: '/articles_main/website_news.png',
-        },
-        // Add more articles as needed
-    ];
-
-    return {
-        props: {
-            articles,
-        },
-    };
-}
