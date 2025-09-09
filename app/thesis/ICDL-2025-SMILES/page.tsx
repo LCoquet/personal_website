@@ -1,11 +1,13 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 export default function Page() {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [imgDims, setImgDims] = useState({ height: 0, top: 0 });
 
     const handlePlayPause = () => {
         if (!audioRef.current) return;
@@ -35,24 +37,41 @@ export default function Page() {
         audioRef.current.currentTime = seekTime;
     };
 
+    // Update image dimensions on mount and resize
+    useEffect(() => {
+        function updateDims() {
+            if (imgRef.current) {
+                const rect = imgRef.current.getBoundingClientRect();
+                setImgDims({ height: rect.height, top: rect.top });
+            }
+        }
+        updateDims();
+        window.addEventListener('resize', updateDims);
+        return () => window.removeEventListener('resize', updateDims);
+    }, []);
+
     return (
         <div>
             <h2 className='text-5xl font-bold mb-6'>ICDL 2025 - SMILES Workshop</h2>
-            <div className="relative mx-auto my-3 h-[80vh] w-fit">
+            <div className="relative mx-auto my-3 w-fit">
                 <img
+                    ref={imgRef}
                     src="/ICDL-2025/sound_generation_process.svg"
                     alt="Sound generation process, step by step"
-                    className="h-[80vh] mx-auto"
+                    className="max-h-[80vh] h-auto w-full mx-auto"
+                    style={{ maxWidth: '100%' }}
                 />
                 {/* Scrolling line overlay */}
                 <div
                     className="absolute"
                     style={{
-                        left: `${12 + (progress * 0.78)}%`,
-                        top: '12%',
-                        height: '77%',
+                        left: imgRef.current
+                            ? `${12 + (progress * 0.78)}%`
+                            : '12%',
+                        top: '12%', // <-- Start at the very top of the image container
+                        height: imgDims.height ? `${imgDims.height*.77}px` : '77%',
                         width: '3px',
-                        background: 'rgba(239, 68, 68)', // same as background
+                        background: 'rgba(239, 68, 68)',
                         transition: isPlaying ? 'left 0.001s linear' : undefined,
                         pointerEvents: 'none',
                     }}
