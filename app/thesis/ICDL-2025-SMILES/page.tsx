@@ -5,9 +5,34 @@ import { useRef, useState, useEffect } from 'react';
 export default function Page() {
     const audioRef = useRef<HTMLAudioElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
+    const progressBarRef = useRef<HTMLDivElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState(0); // for slider
     const [imgDims, setImgDims] = useState({ height: 0, top: 0 });
+
+    // --- Smooth progress animation for slider and red line ---
+    useEffect(() => {
+        let rafId: number;
+        function updateProgress() {
+            if (audioRef.current) {
+                const current = audioRef.current.currentTime;
+                const duration = audioRef.current.duration || 1;
+                const prog = (current / duration) * 100;
+                setProgress(prog); // update slider smoothly
+                if (progressBarRef.current) {
+                    progressBarRef.current.style.left = `${12 + prog * 0.78}%`;
+                }
+            }
+            if (audioRef.current && !audioRef.current.paused && !audioRef.current.ended) {
+                rafId = requestAnimationFrame(updateProgress);
+            }
+        }
+        if (isPlaying) {
+            rafId = requestAnimationFrame(updateProgress);
+        }
+        return () => cancelAnimationFrame(rafId);
+    }, [isPlaying]);
+    // --- End smooth progress animation ---
 
     const handlePlayPause = () => {
         if (!audioRef.current) return;
@@ -19,10 +44,11 @@ export default function Page() {
     };
 
     const handleTimeUpdate = () => {
-        if (!audioRef.current) return;
-        const current = audioRef.current.currentTime;
-        const duration = audioRef.current.duration || 1;
-        setProgress((current / duration) * 100);
+        if (audioRef.current) {
+            const current = audioRef.current.currentTime;
+            const duration = audioRef.current.duration || 1;
+            setProgress((current / duration) * 100);
+        }
     };
 
     const handleAudioEnded = () => {
@@ -35,6 +61,7 @@ export default function Page() {
         const duration = audioRef.current.duration || 1;
         const seekTime = (parseFloat(e.target.value) / 100) * duration;
         audioRef.current.currentTime = seekTime;
+        setProgress(parseFloat(e.target.value)); // update immediately for feedback
     };
 
     // Update image dimensions on mount and resize
@@ -63,17 +90,16 @@ export default function Page() {
                 />
                 {/* Scrolling line overlay */}
                 <div
+                    ref={progressBarRef}
                     className="absolute"
                     style={{
-                        left: imgRef.current
-                            ? `${12 + (progress * 0.78)}%`
-                            : '12%',
-                        top: '12%', // <-- Start at the very top of the image container
-                        height: imgDims.height ? `${imgDims.height*.77}px` : '77%',
+                        left: `${12 + progress * 0.78}%`,
+                        top: '12%',
+                        height: imgDims.height ? `${imgDims.height * .77}px` : '77%',
                         width: '3px',
                         background: 'rgba(239, 68, 68)',
-                        transition: isPlaying ? 'left 0.001s linear' : undefined,
                         pointerEvents: 'none',
+                        transition: isPlaying ? 'left 0.001s linear' : undefined,
                     }}
                 />
             </div>
