@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function ArticleCard({ article }: { article: { title: string; description: string; date: string; link: string; image: string } }) {
     return (
         <Link href={article.link} passHref>
-            <div className="group relative text-left bg-white/30 border border-gray-300 rounded-lg mb-6 shadow-md hover:shadow-lg transition-shadow duration-300 w-1/4 overflow-hidden cursor-pointer min-h-[350px] flex flex-col justify-end">
+            <div className="group relative text-left bg-white/30 border border-gray-300 rounded-lg mb-6 shadow-md hover:shadow-lg transition-shadow duration-300 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden cursor-pointer min-h-[350px] flex flex-col justify-end">
                 {/* Image at the very top, fades out on hover */}
                 <img
                     src={article.image}
