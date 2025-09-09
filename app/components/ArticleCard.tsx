@@ -10,7 +10,7 @@ export default function ArticleCard({ article }: { article: { title: string; des
                 <img
                     src={article.image}
                     alt={article.title}
-                    className="w-full block h-40 object-cover transition-opacity duration-500 group-hover:opacity-60"
+                    className="w-full block h-40 object-cover transition-opacity duration-500 group-hover:opacity-10"
                     style={{ display: "block" }}
                 />
                 {/* Card content with padding */}
