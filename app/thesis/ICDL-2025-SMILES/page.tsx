@@ -80,6 +80,7 @@ export default function Page() {
     return (
         <div>
             <h2 className='text-5xl font-bold mb-6'>ICDL 2025 - SMILES Workshop</h2>
+            This page contains addition to my poster presentation. Seeing sound is pretty interesting. Hearing it too is better!
             <div className="relative mx-auto my-3 w-fit">
                 <img
                     ref={imgRef}
