@@ -6,7 +6,8 @@ import TempFiller from "./components/TempFiller";
 export default function Home() {
   return (
     <div>
-      <TempFiller />
+      Page still under construction. Come back later!
+      {/* <TempFiller /> */}
     </div>
   );
 }
